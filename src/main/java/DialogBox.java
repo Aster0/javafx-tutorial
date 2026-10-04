@@ -24,6 +24,7 @@ public class DialogBox extends HBox {
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(getChildren());
         Collections.reverse(tmp); getChildren().setAll(tmp); setAlignment(Pos.TOP_LEFT);
+        dialog.getStyleClass().add("reply-label");
     }
     public static DialogBox getUserDialog(String text, Image img) { return new DialogBox(text, img); }
     public static DialogBox getDukeDialog(String text, Image img) { DialogBox db = new DialogBox(text, img); db.flip(); return db; }
