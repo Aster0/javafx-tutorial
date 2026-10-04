@@ -16,8 +16,8 @@ public class Main extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Image userImage = new javafx.scene.image.WritableImage(100, 100);
-    private Image dukeImage = new javafx.scene.image.WritableImage(100, 100);
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
     private Duke duke = new Duke();
 
     @Override
