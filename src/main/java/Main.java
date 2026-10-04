@@ -49,12 +49,15 @@ public class Main extends Application {
         AnchorPane.setRightAnchor(sendButton, 1.0);
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
-        sendButton.setOnAction(event -> handleUserInput());
+        sendButton.setOnMouseClicked(event -> handleUserInput());
         userInput.setOnAction(event -> handleUserInput());
         dialogContainer.heightProperty().addListener(observable -> scrollPane.setVvalue(1.0));
         stage.show();
     }
 
+    /**
+     * Creates dialog boxes for the user's input and Duke's response, then clears the input field.
+     */
     private void handleUserInput() {
         String userText = userInput.getText();
         String dukeText = duke.getResponse(userText);
