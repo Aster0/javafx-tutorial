@@ -1,5 +1,9 @@
+import java.io.IOException;
+import java.util.Collections;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -8,31 +12,19 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 public class DialogBox extends HBox {
-    private final Label text;
-    private final ImageView displayPicture;
-
-    private DialogBox(String s, Image i) {
-        text = new Label(s);
-        displayPicture = new ImageView(i);
-        text.setWrapText(true);
-        displayPicture.setFitWidth(100.0);
-        displayPicture.setFitHeight(100.0);
-        setAlignment(Pos.TOP_RIGHT);
-        getChildren().addAll(text, displayPicture);
+    @FXML private Label dialog;
+    @FXML private ImageView displayPicture;
+    private DialogBox(String text, Image img) {
+        try {
+            FXMLLoader loader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            loader.setController(this); loader.setRoot(this); loader.load();
+        } catch (IOException e) { throw new RuntimeException(e); }
+        dialog.setText(text); displayPicture.setImage(img);
     }
-
     private void flip() {
-        setAlignment(Pos.TOP_LEFT);
         ObservableList<Node> tmp = FXCollections.observableArrayList(getChildren());
-        FXCollections.reverse(tmp);
-        getChildren().setAll(tmp);
+        Collections.reverse(tmp); getChildren().setAll(tmp); setAlignment(Pos.TOP_LEFT);
     }
-
-    public static DialogBox getUserDialog(String s, Image i) { return new DialogBox(s, i); }
-
-    public static DialogBox getDukeDialog(String s, Image i) {
-        DialogBox db = new DialogBox(s, i);
-        db.flip();
-        return db;
-    }
+    public static DialogBox getUserDialog(String text, Image img) { return new DialogBox(text, img); }
+    public static DialogBox getDukeDialog(String text, Image img) { DialogBox db = new DialogBox(text, img); db.flip(); return db; }
 }
